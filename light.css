@@ -1,0 +1,39 @@
+/*buttonBar colors*/
+#buttonBar, #mobileBar {
+    background-color: #cccccc;
+}
+#buttonBar button, #mobileBar button {
+    background-color: #eeeeee;
+}
+#buttonBar button:hover, #mobileBar button:hover {
+    background-color: #eeee00;
+}
+/*Button icons*/
+#logo {
+    background-image: url("images/logo.png");
+}
+#personalLogo {
+    background-image: url("images/personalLogo.png");
+}
+#settingsButton {
+    background-image: url("images/settings.png");
+}
+#shareButton {
+    background-image: url("images/share.png");
+}
+#filesButton {
+    background-image: url("images/files.png");
+}
+#codeButton {
+    background-image: url("images/code.png");
+}
+#resultButton {
+    background-image: url("images/result.png");
+}
+/*main*/
+main {
+    background-color: #f0f0f0;
+}
+#toggleFilesButton {
+    background-color: #aaaaaa;
+}

@@ -1,0 +1,146 @@
+body {
+    overflow: hidden;
+}
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    transition: all 0.5s;
+}
+main {
+    display: block;
+    position: absolute;
+}
+#buttonBar button, #mobileBar button {
+    background-size: cover;
+    background-position: center;
+}
+/*buttonBar landscape*/
+@media only screen and (orientation: landscape) {
+#buttonBar {
+    height: 100vh;
+    width: 10vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#buttonBar button, #mobileBar button {
+    height: 10vw;
+    width: 10vw;
+    margin-bottom: 2vw;
+    float: left;
+    max-width: 20vw;
+}
+.topButtons, .bottomButtons {
+    left: 0;
+    height: 22vw;
+    width: 10vw;
+    position: absolute;
+}
+.topButtons {
+    top: 0;
+}
+.bottomButtons {
+    bottom: 0;
+}
+main {
+    height: 100vh;
+    width: 90vw;
+    top: 0;
+    left: 10vw;
+}
+}
+/*buttonBar portrait*/
+@media only screen and (orientation: portrait) {
+#buttonBar {
+    width: 100vw;
+    height: 10vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#buttonBar button, #mobileBar button {
+    width: 10vh;
+    height: 10vh;
+    margin-right: 2vh;
+    max-width: 23vw;
+}
+#share {
+    margin-right: 0!important;
+}
+.topButtons, .bottomButtons {
+    left: 0;
+    height: 10vh;
+}
+.topButtons {
+    float: left;
+}
+.bottomButtons {
+    float:  right;
+}
+main {
+    height: 90vh;
+    width: 100vw;
+    top: 10vh;
+    left: 0;
+}
+}
+#mobileBar {
+    position: absolute;
+    display: none;
+}
+/*portrait mobile*/
+@media only screen and (orientation: portrait) {
+    @media only screen and (max-height: 850px) {
+        #mobileBar {
+            display: block!important;
+            width: 100vw;
+            height: 10vh;
+            bottom: 0;
+            left: 0;
+        }
+        main {
+            height: 80vh!important;
+        }
+    }
+}
+/*landscape mobile*/
+@media only screen and (orientation: landscape) {
+    @media only screen and (max-width: 850px) {
+        #mobileBar {
+            display: block!important;
+            width: 10vw;
+            height: 100vh;
+            top: 0;
+            left: 90vw;
+        }
+        main {
+            width: 80vw!important;
+        }
+    }
+}
+#toggleFiles {
+    display: none;
+}
+/*portrait pc*/
+@media only screen and (orientation: portrait) {
+    @media only screen and (min-height: 850px) {
+    }
+}
+/*landscape pc*/
+@media only screen and (orientation: landscape) {
+    @media only screen and (min-width: 850px) {
+        #toggleFilesButton {
+            display: block;
+            width: 20px;
+            position: absolute;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+        main {
+            padding-left: 20px;
+        }
+    }
+}
