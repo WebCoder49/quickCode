@@ -14,6 +14,15 @@
 #toggleFilesButton:hover {
     background-color: #aaaaff;
 }
+.bigButton {
+    background-color: #aaaaff;
+}
+.bigButton:hover {
+    background-color: #eeee00;
+}
+#mobileBar button.open {
+    background-color: #eeee00;
+}
 /*Button icons*/
 #logo {
     background-image: url("images/logo.png");
@@ -39,10 +48,15 @@
 /*main*/
 main {
     background-color: #f0f0f0;
+    background-image: url("images/logo.png");
 }
 #toggleFilesButton {
     background-color: #bbbbbb;
 }
 #files {
     background-color: #fefefe;
+}
+#files, #code, #result, #mobilePlaceholder {
+    background-color: #fefefe;
+    border: 1px solid #888888;
 }

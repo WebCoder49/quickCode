@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>quickCode Editor by WebCoder49</title>
+        <title>QuickCode by WebCoder49 - edit and try out HTML code privately, quickly and easily!</title>
         <!--jQuery-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!--script-->
@@ -16,11 +16,13 @@
         <link rel="icon" type="image/png" href="images/logo.png"/>
     </head>
     <body>
-        <div id="buttonBar"><div class="topButtons"><a href="https://webcoder49.github.io/quickCode"><button id="logo"></button></a><a href="https://webcoder49.wordpress.com/"><button id="personalLogo"></button></a></div><div class="bottomButtons"><button onclick="settings();" id="settingsButton"></button><button onclick="share();" id="shareButton"></button></div></div>
+        <div id="buttonBar"><div class="topButtons"><a href="https://webcoder49.github.io/quickCode"><button title="QuickCode - edit and try out HTML code privately, quickly and easily!" id="logo"></button></a><a href="https://webcoder49.wordpress.com/"><button id="personalLogo" title="by WebCoder49"></button></a></div><div class="bottomButtons"><button onclick="settings();" id="settingsButton" title="Settings"></button><button onclick="share();" id="shareButton" title="Share a file"></button></div></div>
         <main>
             <div id="toggleFilesButton" onclick="toggleFiles();"></div>
-            <div id="files">Files</div>
+            <div id="files"><div class="bigButton" title="New File" onclick="newFile();"></div><div title="Upload a file" onclick="uploadFile();" class="bigButton"></div>Files <span id="closeFilesButton" onclick="toggleFiles();">&times;</span></div>
+            <div id="code">Code</div>
+            <div id="result">Result</div>
         </main>
-        <div id="mobileBar"><div class="topButtons"><button id="filesButton" onclick="viewFiles();"></button></div><div class="bottomButtons"><button onclick="viewCode();" id="codeButton"></button><button onclick="viewResult();" id="resultButton"></button></div></div>
+        <div id="mobileBar"><div class="topButtons"><button id="filesButton" title="View/Upload/Edit a file" onclick="viewFiles();"></button></div><div class="bottomButtons"><button onclick="viewCode();" title="View and edit the Code" id="codeButton"></button><button title="See it in action!" onclick="viewResult();" id="resultButton"></button></div></div>
     </body>
 </html>
