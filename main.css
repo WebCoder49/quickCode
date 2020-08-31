@@ -29,7 +29,7 @@ main {
     width: 10vw;
     margin-bottom: 2vw;
     float: left;
-    max-width: 20vw;
+    max-width: 32vh!important;
 }
 .topButtons, .bottomButtons {
     left: 0;
@@ -63,7 +63,7 @@ main {
     width: 10vh;
     height: 10vh;
     margin-right: 2vh;
-    max-width: 23vw;
+    max-width: 23vw!important;
 }
 #share {
     margin-right: 0!important;
@@ -91,7 +91,7 @@ main {
 }
 /*portrait mobile*/
 @media only screen and (orientation: portrait) {
-    @media only screen and (max-height: 850px) {
+    @media only screen and (max-height: 550px) {
         #mobileBar {
             display: block!important;
             width: 100vw;
@@ -119,17 +119,15 @@ main {
         }
     }
 }
-#toggleFiles {
+#toggleFilesButton {
+    display: none;
+}
+#closeFilesButton {
     display: none;
 }
 /*portrait pc*/
 @media only screen and (orientation: portrait) {
-    @media only screen and (min-height: 850px) {
-    }
-}
-/*landscape pc*/
-@media only screen and (orientation: landscape) {
-    @media only screen and (min-width: 850px) {
+    @media only screen and (min-height: 550px) {
         #toggleFilesButton {
             display: block;
             width: 20px;
@@ -137,10 +135,35 @@ main {
             height: 100vh;
             top: 0;
             left: 0;
-            z-index: 10;
+            z-index: 5;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         main {
             padding-left: 20px;
         }
+        #files {
+            width: 0;
+            opacity: 0;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            height: 100%;
+            position: absolute;
+            z-index: 10;
+        }
+        #files.open {
+            width: 100%;
+            opacity: 1;
+        }
+        #closeFilesButton {
+            display: block!important;
+        }
+    }
+}
+/*landscape pc*/
+@media only screen and (orientation: landscape) {
+    @media only screen and (min-width: 850px) {
     }
 }

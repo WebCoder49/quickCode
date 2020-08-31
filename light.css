@@ -1,3 +1,6 @@
+* {
+    color: #444444;
+}
 /*buttonBar colors*/
 #buttonBar, #mobileBar {
     background-color: #cccccc;
@@ -7,6 +10,9 @@
 }
 #buttonBar button:hover, #mobileBar button:hover {
     background-color: #eeee00;
+}
+#toggleFilesButton:hover {
+    background-color: #aaaaff;
 }
 /*Button icons*/
 #logo {
@@ -21,7 +27,7 @@
 #shareButton {
     background-image: url("images/share.png");
 }
-#filesButton {
+#filesButton, #toggleFilesButton {
     background-image: url("images/files.png");
 }
 #codeButton {
@@ -35,5 +41,8 @@ main {
     background-color: #f0f0f0;
 }
 #toggleFilesButton {
-    background-color: #aaaaaa;
+    background-color: #bbbbbb;
+}
+#files {
+    background-color: #fefefe;
 }
