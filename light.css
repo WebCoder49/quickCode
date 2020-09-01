@@ -1,5 +1,5 @@
 * {
-    color: #444444;
+    color: #666666;
 }
 /*buttonBar colors*/
 #buttonBar, #mobileBar {
@@ -45,6 +45,12 @@
 #resultButton {
     background-image: url("images/result.png");
 }
+#newFile {
+    background-image: url("images/plus.png");
+}
+#upload {
+    background-image: url("images/upload.png");
+}
 /*main*/
 main {
     background-color: #f0f0f0;
@@ -59,4 +65,7 @@ main {
 #files, #code, #result, #mobilePlaceholder {
     background-color: #fefefe;
     border: 1px solid #888888;
+}
+#files #search {
+    background-image: url("images/search.png");
 }

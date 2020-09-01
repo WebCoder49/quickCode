@@ -19,7 +19,10 @@
         <div id="buttonBar"><div class="topButtons"><a href="https://webcoder49.github.io/quickCode"><button title="QuickCode - edit and try out HTML code privately, quickly and easily!" id="logo"></button></a><a href="https://webcoder49.wordpress.com/"><button id="personalLogo" title="by WebCoder49"></button></a></div><div class="bottomButtons"><button onclick="settings();" id="settingsButton" title="Settings"></button><button onclick="share();" id="shareButton" title="Share a file"></button></div></div>
         <main>
             <div id="toggleFilesButton" onclick="toggleFiles();"></div>
-            <div id="files"><div class="bigButton" title="New File" onclick="newFile();"></div><div title="Upload a file" onclick="uploadFile();" class="bigButton"></div>Files <span id="closeFilesButton" onclick="toggleFiles();">&times;</span></div>
+            <div id="files">
+                <div class="bigButton" id="newFile" title="New File" onclick="newFile();"></div><div title="Upload a file" onclick="uploadFile();" id="upload" class="bigButton"></div>
+                <input type="text" id="search" title="Search Saved Files" onkeypress="searchFiles(this.value);"/>
+                Files <span id="closeFilesButton" onclick="toggleFiles();">&times;</span></div>
             <div id="code">Code</div>
             <div id="result">Result</div>
         </main>
