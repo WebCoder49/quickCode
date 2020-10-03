@@ -1,45 +1,45 @@
 * {
-    color: #666666;
+    color: #aaaaaa;
 }
 ::-webkit-scrollbar {
-    background: #cccccc;
+    background: #333333;
 }
 ::-webkit-scrollbar-track{
-    background: #666666
+    background: #aaaaaa;
 }
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: #aaaaaa;
+    color: #666666;
     opacity: 1; /* Firefox */
   }
   
   :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: #aaaaaa;
+    color: #666666;
   }
   
   ::-ms-input-placeholder { /* Microsoft Edge */
-    color: #aaaaaa;
+    color: #666666;
   }
 /*buttonBar colors*/
 #buttonBar, #mobileBar {
-    background-color: #cccccc;
+    background-color: #333333;
 }
 #buttonBar button, #mobileBar button {
-    background-color: #eeeeee;
+    background-color: #111111;
 }
 #buttonBar button:hover, #mobileBar button:hover {
-    background-color: #eeee00;
+    background-color: #888800;
 }
 #toggleFilesButton:hover {
-    background-color: #aaaaff;
+    background-color: #000088;
 }
 .bigButton {
-    background-color: #aaaaff;
+    background-color: #000088;
 }
 .bigButton:hover {
-    background-color: #eeee00;
+    background-color: #888800;
 }
 #mobileBar button.open {
-    background-color: #eeee00;
+    background-color: #888800;
 }
 /*Button icons*/
 #logo {
@@ -70,33 +70,34 @@
     background-image: url("images/upload.png");
 }
 #run {
-    background-image: url("images/run.png");
+  background-image: url("images/run.png");
 }
 /*main*/
 main {
-    background-color: #f0f0f0;
+    background-color: #0f0f0f;
     background-image: url("images/logo.png");
 }
 #toggleFilesButton {
-    background-color: #bbbbbb;
+    background-color: #444444;
 }
 #files {
-    background-color: #fefefe;
+    background-color: #010101;
 }
 #files, #code, #result, #mobilePlaceholder {
-    background-color: #fefefe;
+    background-color: #010101;
     border: 1px solid #888888;
 }
 #files #search {
     background-image: url("images/search.png");
+    background-color: #000000;
 }
 
 /*Highlighter*/
 .hljs {
     display: block;
     overflow-x: auto;
-    background: #f5efe0;
-    color: #657b83;
+    background: #0a101f;
+    color: #aaaaaa;
   }
   
   .hljs-comment,
@@ -108,11 +109,11 @@ main {
   .hljs-keyword,
   .hljs-selector-tag,
   .hljs-addition {
-    color: #0088ff;
+    color: #004488;
   }
   
   .hljs-number {
-      color: #0055aa;
+      color: #88aaff;
   }
 
   .hljs-string,
@@ -120,7 +121,7 @@ main {
   .hljs-literal,
   .hljs-doctag,
   .hljs-regexp {
-    color: #00aaaa;
+    color: #88ffff;
   }
 
   .hljs-title,
@@ -128,7 +129,7 @@ main {
   .hljs-name,
   .hljs-selector-id,
   .hljs-selector-class {
-    color: #0000ff;
+    color: #8888ff;
     font-weight: bold;
   }
   
@@ -138,7 +139,7 @@ main {
   .hljs-template-variable,
   .hljs-class .hljs-title,
   .hljs-type {
-    color: #888800;
+    color: #ffff88;
     font-style: italic;
   }
   
@@ -150,16 +151,16 @@ main {
   .hljs-selector-attr,
   .hljs-selector-pseudo,
   .hljs-link {
-    color: #8888ff;
+    color: #aaaaff;
   }
   
   .hljs-built_in,
   .hljs-deletion {
-    color: #e3b000;
+    color: #ffc030;
   }
   
   .hljs-formula {
-    background: #8888ff;
+    background: #000088;
   }
   
   .hljs-emphasis {

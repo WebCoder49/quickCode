@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!--hljs-->
+        <script src="./third-party/highlight/highlight.pack.js"></script>
+        <!--Google Font-->
         <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
         <title>QuickCode by WebCoder49 - edit and try out HTML code privately, quickly and easily!</title>
         <!--jQuery-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
         <!--script-->
         <script src="script.js"></script>
         <!--main styles-->
@@ -25,8 +29,14 @@
                 <div class="bigButton" id="newFile" title="New File" onclick="newFile();"></div><div title="Upload a file" onclick="uploadFile();" id="upload" class="bigButton"></div>
                 <input type="text" placeholder="Search" id="search" title="Search Saved Files" onkeypress="searchFiles(this.value);"/>
             </div>
-            <div id="code">Code</div>
-            <div id="result">Result</div>
+<div id="code"><div id="innerCode"><textarea id="plainCode" onkeyup="highlight(this.value);" onkeydown="codeKeyPressed(event);"></textarea>
+<code class="html" id="richCode">
+<div class="hljs-comment">What will you <span class="hljs-title">code</span> today?</div>
+</code></div></div>
+            <div id="result">
+                <div class="bigButton" id="run" title="Run Code" onclick="run();"></div>
+            <iframe id="resultFrame" src="pageExample.html"></iframe>
+            </div>
         </main>
         <div id="mobileBar"><div class="topButtons"><button id="filesButton" title="View/Upload/Edit a file" onclick="viewFiles();"></button></div><div class="bottomButtons"><button onclick="viewCode();" title="View and edit the Code" id="codeButton"></button><button title="See it in action!" onclick="viewResult();" id="resultButton"></button></div></div>
     </body>
