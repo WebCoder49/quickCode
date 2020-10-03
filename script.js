@@ -48,5 +48,12 @@ function codeKeyPressed(event) {
 function run() {
     let frame = document.getElementById("resultFrame");
     let code = document.getElementById("plainCode").value;
+    var ascii = /^[ -~]+$/;
+
+    if ( !ascii.test(code) ) {
+    // string has non-ascii characters
+    alert("Please only type regular characters, not emojis etc. Thank you!")
+    } else {
     frame.src = "data:text/html;base64," + btoa(code);
+    }
 }
