@@ -227,7 +227,7 @@ h1 {
     float: left;
 }
 #files #search {
-    width: 100%;
+    width: calc(98% - 10vh);
     height: 10%;
     padding: 1%;
     padding-left: 10vh;
