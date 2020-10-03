@@ -1,6 +1,18 @@
 * {
     color: #666666;
 }
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #aaaaaa;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #aaaaaa;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #aaaaaa;
+  }
 /*buttonBar colors*/
 #buttonBar, #mobileBar {
     background-color: #cccccc;

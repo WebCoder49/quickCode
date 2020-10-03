@@ -6,6 +6,7 @@ body {
     padding: 0;
     border: 0;
     transition: all 0.5s;
+    font-family: 'Fira Mono', monospace;
 }
 main {
     display: block;
@@ -91,6 +92,22 @@ main {
 #mobileBar {
     position: absolute;
     display: none;
+}
+h1 {
+    font-size: 50px;
+    color: #8888ff;
+}
+.close {
+    display: block;
+    height: 50px;
+    width: 50px;
+    font-size: 50px;
+    float: right;
+    margin: 5px;
+    color: #000088;
+}
+.close:hover  {
+    color: #888800;
 }
 /*portrait mobile*/
 @media only screen and (orientation: portrait) {
