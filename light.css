@@ -72,6 +72,13 @@
 #run {
     background-image: url("images/run.png");
 }
+#download {
+    background-image: url("images/upload.png");
+    transform: rotate(180deg);
+}
+#save {
+    background-image: url("images/save.png");
+}
 /*main*/
 main {
     background-color: #f0f0f0;
@@ -90,11 +97,36 @@ main {
 #files #search {
     background-image: url("images/search.png");
 }
-
+/*Files*/
+.fileItem {
+    background-color: #f0f0f0;
+    border-bottom: 2px solid #666666;
+}
+.fileItem:hover .fileName {
+    color: #000066
+}
+.fileItem.open {
+    background-color: #f0f000;
+    border-bottom: 2px solid #666666;
+}
+.fileName {
+    color: #666666;
+    text-align: left;
+    padding: 2px;
+}
+.fileItem.open .fileName {
+    color: #000066;
+}
+.fileOptions {
+    background-color: #e0e0e0;
+    background-image: url("images/seemore.png");
+}
+.fileItem.open .fileOptions {
+    background-color: #e0e000;
+}
 /*Highlighter*/
 .hljs {
     display: block;
-    overflow-x: auto;
     background: #f5efe0;
     color: #657b83;
   }

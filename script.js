@@ -1,3 +1,7 @@
+let fs;
+let currentName;
+let currentCode;
+let currentlyEditing;
 function toggleFiles() {
     document.getElementById("files").classList.toggle("open");
 }
@@ -26,11 +30,25 @@ function viewResult() {
     document.getElementById("resultButton").className = "open";
 }
 function highlight(code) {
+    if(currentlyEditing !== undefined) {
+    code = code.replace(new RegExp(" ", "ig"), "\u00a0")
     let linen = code.split("\n").length;
     document.getElementById("plainCode").style.height = (linen * 20) + "px";
     document.getElementById("richCode").style.height = (linen * 20) + "px";
+    let linem = 0;
+    code.split("\n").forEach(function(item) {
+        if(item.length > linem) {
+            linem = item.length;
+        }
+    });
+    document.getElementById("plainCode").style.width = (linem * 15) + "px";
+    document.getElementById("richCode").style.width = (linem * 15) + "px";
     document.getElementById("richCode").innerText = code;
     hljs.highlightBlock(document.getElementById("richCode"));
+    } else {
+        document.getElementById("richCode").innerHTML = "<div class='hljs-comment'>Please <span class='hljs-title'>click a file in the file tab to edit it </span> <br/>or press the <span class='hljs-title'>+</span> button to create a new one.</div>";
+        document.getElementById("plainCode").value = "";
+    }
 }
 function codeKeyPressed(event) {
     if(event.code == "Tab") {
@@ -48,12 +66,71 @@ function codeKeyPressed(event) {
 function run() {
     let frame = document.getElementById("resultFrame");
     let code = document.getElementById("plainCode").value;
-    var ascii = /^[ -~]+$/;
-
-    if ( !ascii.test(code) ) {
-    // string has non-ascii characters
-    alert("Please only type regular characters, not emojis etc. Thank you!")
-    } else {
     frame.src = "data:text/html;base64," + btoa(code);
+}
+function download() {
+    let code = document.getElementById("plainCode").value;
+    window.open("download.html#" + encodeURIComponent("data:text/html;base64," + btoa(code)), "_blank")
+}
+function save() {
+    let currentCode = document.getElementById("plainCode").value;
+}
+function searchFiles(q) {
+    let es = document.getElementById("fileList").getElementsByClassName("fileItem");
+    for(let i = 0; i < es.length; i++) {
+        if(es[i].innerText.includes(q)) {
+            es[i].style.display = "block";
+        } else {
+            es[i].style.display = "none";
+        }
     }
 }
+function openF(e) {
+    let es = document.getElementById("fileList").getElementsByClassName("fileItem");
+    for(let i = 0; i < es.length; i++) {
+        es[i].classList.remove("open");
+    }
+    e.classList.add("open");
+    let n = e.id.substring(1);
+    fs = files.get();
+    let f = fs[n];
+    currentName = f[0];
+    currentCode = f[1];
+    currentlyEditing = n;
+    document.getElementById("plainCode").value = currentCode;
+    highlight(currentCode);
+}
+let files = {
+    get: function() {
+        if(localStorage.qCFs !== undefined) {
+            let fCodes = localStorage.qCFs.split("/");
+            let files = [];
+            fCodes.forEach(function(item) {
+                files.push(item.split(","));
+            });
+            return files;
+        } else {
+            return [];
+        }
+    },
+    set: function(arr) {
+        let codes = [];
+        arr.forEach(function(item) {
+            codes.push(item.join("#"));
+        });
+        localStorage.qCFs = codes.join("/");
+    },
+    addToList: function() {
+        fs = files.get();
+        fs.forEach(function(item, index) {
+            document.getElementById("fileList").innerHTML += '<div class="fileItem" id="f' + index + '" onclick="openF(this);"><span class="fileName">' + item[0] + '.html</span><button class="fileOptions"></button></div>';
+        });
+    }
+}
+window.onload = files.addToList;
+window.addEventListener('beforeunload', function (e) {
+    // Cancel the event
+    e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+    // Chrome requires returnValue to be set
+    e.returnValue = 'Are you sure you want to leave? Changes may not be saved - WebCoder49';
+  });

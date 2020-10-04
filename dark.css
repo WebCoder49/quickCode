@@ -72,6 +72,13 @@
 #run {
   background-image: url("images/run.png");
 }
+#download {
+  background-image: url("images/upload.png");
+  transform: rotate(180deg);
+}
+#save {
+  background-image: url("images/save.png");
+}
 /*main*/
 main {
     background-color: #0f0f0f;
@@ -92,10 +99,37 @@ main {
     background-color: #000000;
 }
 
+/*Files*/
+.fileItem {
+  background-color: #0f0f0f;
+  border-bottom: 2px solid #aaaaaa;
+}
+.fileItem:hover .fileName {
+  color: #ffffaa
+}
+.fileItem.open {
+  background-color: #0f0fff;
+  border-bottom: 2px solid #aaaaaa;
+}
+.fileName {
+  color: #aaaaaa;
+  text-align: left;
+  padding: 2px;
+}
+.fileItem.open .fileName {
+  color: #ffffaa;
+}
+.fileOptions {
+  background-color: #1f1f1f;
+  background-image: url("images/seemore.png");
+}
+.fileItem.open .fileOptions {
+  background-color: #1f1fff;
+}
+
 /*Highlighter*/
 .hljs {
     display: block;
-    overflow-x: auto;
     background: #0a101f;
     color: #aaaaaa;
   }

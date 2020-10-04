@@ -14,7 +14,7 @@
         <!--main styles-->
         <link rel="stylesheet" href="main.css"/>
         <!--theme styles-->
-        <link rel="stylesheet" href="light.css"/>
+        <link rel="stylesheet" href="dark.css"/>
         <!--mobile meta viewport-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--favicon-->
@@ -27,14 +27,18 @@
             <div id="files">
                 <h1>Files <span id="closeFilesButton" class="close" onclick="toggleFiles();">&times;</span></h1>
                 <div class="bigButton" id="newFile" title="New File" onclick="newFile();"></div><div title="Upload a file" onclick="uploadFile();" id="upload" class="bigButton"></div>
-                <input type="text" placeholder="Search" id="search" title="Search Saved Files" onkeypress="searchFiles(this.value);"/>
+                <input type="text" placeholder="Search" id="search" title="Search Saved Files" onkeyup="searchFiles(this.value);"/>
+                <div id="fileList">
+                </div>
             </div>
-<div id="code"><div id="innerCode"><textarea id="plainCode" onkeyup="highlight(this.value);" onkeydown="codeKeyPressed(event);"></textarea>
+<div id="code">
+    <div class="bigButton" id="save" title="Save to Local Web Storage" onclick="save();"></div>
+    <div id="innerCode"><textarea id="plainCode" spellcheck="false" onkeyup="highlight(this.value);" onkeydown="codeKeyPressed(event);"></textarea>
 <code class="html" id="richCode">
 <div class="hljs-comment">What will you <span class="hljs-title">code</span> today?</div>
 </code></div></div>
             <div id="result">
-                <div class="bigButton" id="run" title="Run Code" onclick="run();"></div>
+                <div class="bigButton" id="run" title="Run Code" onclick="run();"></div><div class="bigButton" id="download" title="Download Page from Code" onclick="download();"></div>
             <iframe id="resultFrame" src="pageExample.html"></iframe>
             </div>
         </main>
