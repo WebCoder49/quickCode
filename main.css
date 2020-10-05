@@ -336,3 +336,16 @@ h1 {
     color:black;
     background:white;
 }
+/*z-indexes*/
+#files {
+    z-index: 0;
+}
+#code {
+    z-index: 1;
+}
+#result {
+    z-index: 2;
+}
+#buttonBar, #mobileBar {
+    z-index: 3;
+}
