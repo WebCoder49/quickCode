@@ -7,12 +7,23 @@ body {
 ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb {
     border-radius: 5px;
 }
+textarea:focus {
+    border: 0;
+    outline: 0;
+    background-color: #888888;
+}
+.icon {
+    height: 1em; width: 1em; margin: 2px; transform: translate(0, 0.25em);
+}
 * {
     margin: 0;
     padding: 0;
     border: 0;
     transition: all 0.5s;
     font-family: 'Fira Mono', monospace;
+}
+input:focus, button:focus {
+    outline: 0;
 }
 main {
     display: block;
@@ -101,6 +112,26 @@ main {
 }
 h1 {
     font-size: 50px;
+    color: #8888ff;
+}
+h2 {
+    font-size: 30px;
+    color: #8888ff;
+}
+h3 {
+    font-size: 28px;
+    color: #8888ff;
+}
+h4 {
+    font-size: 26px;
+    color: #8888ff;
+}
+h5 {
+    font-size: 24px;
+    color: #8888ff;
+}
+h6 {
+    font-size: 22px;
     color: #8888ff;
 }
 .close {
@@ -246,6 +277,7 @@ h1 {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+    cursor: pointer;
 }
 .fileItem {
     width: 100%;
@@ -253,6 +285,7 @@ h1 {
     font-size: 5vh;
     padding: 1px;
     position: relative;
+    cursor: pointer;
 }
 .fileName {
     text-overflow: ellipsis;
@@ -281,15 +314,44 @@ h1 {
     background-color: transparent;
     color: transparent;
     caret-color: #888888;
-    z-index: 1;
+    z-index: 2;
     padding: 10px;
     margin: 0;
+    margin-left: 50px;
     border: 0;
     font-size: 15px;
     min-height: 100%;
     min-width: 100%;
     overflow: visible;
-    white-space: nowrap;
+}
+.linedwrap {
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: visible;
+    min-height: 100%!important;
+}
+.emoji {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    background: linear-gradient(135deg, #00000000, #88880088, #00000000, #00008888, #00000000), 0% 90% / contain no-repeat url("images/personalLogo.png"), 0% 10% / contain no-repeat url("images/logo.png");
+    background-size: contain;
+    text-align: center;
+    padding: 5px;
+    overflow: hidden;
+    height: 100%;
+    width: 45px;
+}
+.emoji span {
+    position: absolute;
+    top: 50%;
+    width: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(-135deg, #00008888, transparent, #88880088);
+    padding: 2px;
 }
 ::selection {
     background: #ffff0088;
@@ -300,6 +362,7 @@ h1 {
     left: 0;
     z-index: 0;
     padding: 10px;
+    padding-left: 60px;
     margin: 0;
     border: 0;
     font-size: 15px;
@@ -307,6 +370,9 @@ h1 {
     min-width: 100%;
     overflow: visible;
     white-space: nowrap;
+}
+.linedtextarea textarea, .linedwrap .codelines .lineno, #plainCode, #richCode {
+    line-height: 20px;
 }
 #innerCode {
     display: block;
@@ -320,6 +386,10 @@ h1 {
     width: 100%;
     height: 10%;
     float: left;
+}
+.linedwrap {
+	border: 0;
+    padding: 3px;
 }
 /*result*/
 #result .bigButton {
@@ -336,16 +406,148 @@ h1 {
     color:black;
     background:white;
 }
+iframe {
+    color:black;
+    background:white;
+    border: 2px solid #888888;
+    padding: 0;
+    box-shadow: 2px 2px #888888;
+}
 /*z-indexes*/
 #files {
-    z-index: 0;
+    z-index: 5;
 }
 #code {
-    z-index: 1;
+    z-index: 0;
 }
 #result {
-    z-index: 2;
+    z-index: 10;
 }
 #buttonBar, #mobileBar {
-    z-index: 3;
+    z-index: 15;
+}
+/*pop-ups*/
+#popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: #000000aa;
+    z-index: 100;
+}
+#popupOverlay.closed {
+    pointer-events:  none;
+    opacity: 0;
+}
+.popup {
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    height: 80%;
+    width: 80%;
+    z-index: 101;
+    border: 3px solid yellow;
+    box-shadow: 3px 3px #ffff0088;
+}
+.popup.closed {
+    pointer-events:  none;
+    opacity: 0;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 0;
+    width: 0;
+}
+.popup h1 {
+    border-bottom: 3px solid #888888;
+    font-size: 7vh;
+    padding: 0.5vh;
+    padding-left: 1vh;
+    width: calc(100% - 1.5vh);
+    height: calc(10% - 1vh);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.popup h1 span {
+    display: block;
+    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: inherit;
+    padding-right: 1vh;
+}
+.popup h1 span:hover {
+    color: #ffff00;
+}
+.popup .content {
+    padding-left: 1vh;
+    width: calc(100% - 3px);
+    height: calc(90% - 3px);
+    position: absolute;
+    top: calc(10% + 3px);
+    left: 0;
+    overflow: auto;
+}
+.popup .content p {
+    padding: 1vh;
+    padding-left: 2vh;
+}
+#darkMode {
+    width: 2rem;
+    height: 1rem;
+    background: linear-gradient(90deg, #8888ff,#8888ff,#8888ff, #000088,#000088, #000088);
+    border-radius: 0.5rem;
+    margin: 0;
+    padding: 0;
+}
+.toggleSwitch {
+    width: 2rem;
+    height: 1rem;
+    border-radius: 0.5rem;
+    margin: 0;
+    padding: 0;
+}
+.toggleSwitch .icon {
+    margin: 0;
+    padding: 0;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.5rem;
+    transform: translate(0, 0);
+    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+}
+.toggleSwitch.on .icon {
+    margin: 0;
+    padding: 0;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.5rem;
+    transform: translate(1rem, 0);
+    clip-path: polygon(22% 49%, 5% 66%, 23% 85%, 35% 98%, 50% 82%, 71% 62%, 87% 47%, 100% 30%, 85% 16%, 69% 33%, 58% 49%, 40% 67%);
+}
+#darkMode .icon {
+    margin: 0;
+    padding: 0;
+    width: 1rem;
+    height: 1rem;
+    background: yellow;
+    border-radius: 0.5rem;
+    transform: translate(0, 0);
+    clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
+}
+#darkMode.dark .icon {
+    margin: 0;
+    padding: 0;
+    width: 1rem;
+    height: 1rem;
+    background: #ffff88;
+    border-radius: 0.5rem;
+    transform: translate(1rem, 0);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+a {
+    color: #8888ff;
 }

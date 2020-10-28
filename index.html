@@ -3,18 +3,21 @@
     <head>
         <!--hljs-->
         <script src="./third-party/highlight/highlight.pack.js"></script>
+        <!--jQuery-->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+        <!--linedtextarea-->
+        <script src="third-party/jquery-linedtextarea/jquery-linedtextarea.js"></script>
+	    <link href="third-party/jquery-linedtextarea/jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
         <!--Google Font-->
         <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
         <title>QuickCode by WebCoder49 - edit and try out HTML code privately, quickly and easily!</title>
-        <!--jQuery-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
         <!--script-->
         <script src="script.js"></script>
         <!--main styles-->
         <link rel="stylesheet" href="main.css"/>
         <!--theme styles-->
-        <link rel="stylesheet" href="dark.css"/>
+        <link rel="stylesheet" href="dark.css" id="theme"/>
         <!--mobile meta viewport-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--favicon-->
@@ -32,16 +35,44 @@
                 </div>
             </div>
 <div id="code">
-    <div class="bigButton" id="save" title="Save to Local Web Storage" onclick="save();"></div>
-    <div id="innerCode"><textarea id="plainCode" spellcheck="false" onkeyup="highlight(this.value);" onkeydown="codeKeyPressed(event);"></textarea>
+    <div class="bigButton" id="save" title="Save to Local Web Storage (Ctrl+S)" onclick="save();"></div>
+    <div id="innerCode"><div class="emoji"><span>😃👩‍💻🌐👨‍💻❔</span></div><textarea id="plainCode" class="lined" spellcheck="false" onkeyup="highlight(this.value);" onkeydown="codeKeyPressed(event);"></textarea>
 <code class="html" id="richCode">
 <div class="hljs-comment">What will you <span class="hljs-title">code</span> today?</div>
 </code></div></div>
             <div id="result">
-                <div class="bigButton" id="run" title="Run Code" onclick="run();"></div><div class="bigButton" id="download" title="Download Page from Code" onclick="download();"></div>
+                <div class="bigButton" id="run" title="Run Code (Ctrl+R)" onclick="run();"></div><div class="bigButton" id="download" title="Download Page from Code" onclick="download();"></div>
             <iframe id="resultFrame" src="pageExample.html"></iframe>
             </div>
         </main>
+        <div id="popupOverlay" class="closed" onclick="exitPopup();">
+        </div>
+        <div id="settings" class="popup closed">
+            <h1>Settings <span onclick="exitPopup();">&times;</span></h1>
+            <div class="content">
+                <p><b onclick="document.getElementById('darkMode').click();">Dark Mode: </b><button id="darkMode" onclick="darkMode(this);"><div class="icon"></div></button></p>
+                <p><b onclick="document.getElementById('fullscreen').click();">Fullscreen: </b><button class="toggleSwitch" id="fullscreen" onclick="toggleSwitch(this, function() {openFullscreen();}, function() {exitFullscreen();});"><div class="icon"></div></button></p>
+            </div>
+        </div>
+        <div id="policy" class="popup">
+            <h1>Policy <span onclick="exitPopup();">&times;</span></h1>
+            <div class="content">
+                <h2>Private. Quick. Easy. This is <b>quickCode</b>.</h2>
+                <p><b>quickCode runs right in your browser and lets you edit, run and save code files quickly and easily! There's no need to provide any personal information or sign in, and quickCode doesn't use cookies!</b></p>
+                <h2>Policy</h2>
+                <p><b>By using quickCode, you agree to the following:</b></p>
+                <h3>Privacy</h3>
+                <p><b>The main aim of quickCode is to stay 100% private, while being as functional, quick and easy as possible. You don't even need to sign in!</b> Rather than using cookies, which don't have the best reputation, quickCode stores your files and preferences locally in your browser on your computer and does not send them to the server. Therefore, sharing links and files cannot be recovered as I (WebCoder49) do not even know what they are, as quickCode is so private!</p>
+                <h3>Third-Party Code Files</h3>
+                <p>quickCode uses some Third-Party code files which let it work. They are all stored on the quickCode server and have been partly modified by WebCoder49 to work with the editor. <b>Thank you for the following files:</b></p>
+                <p>
+                - highlight.js <b>Syntax Highlighter</b>: <a target="_blank" href="https://highlightjs.org/">Website (External Link)</a>, <a target="_blank" href="third-party\highlight\LICENSE">License</a><br/><br/>
+                - <b>jQuery</b> (Version hosted from Google): <a target="_blank" href="https://developers.google.com/speed/libraries#jquery">Google Hosting Website (External Link)</a>, <a target="_blank" href="https://jquery.com/">jQuery Website (External Link)</a>,  <a target="_blank" href="https://jquery.org/license/">License (External Link)</a><br/><br/>
+                - jQuery <b>Lined TextArea</b> Plugin: <a target="blank" href="">GitHub Repository (External Link)</a>, <a target="_blank" href="third-party\jquery-linedtextarea\jquery-linedtextarea-license.txt">License</a><br/><br/>
+                - <b>Google Fonts</b>: <a target="_blank" href="https://fonts.google.com">Website (External Link)</a>
+                </p>
+            </div>
+        </div>
         <div id="mobileBar"><div class="topButtons"><button id="filesButton" title="View/Upload/Edit a file" onclick="viewFiles();"></button></div><div class="bottomButtons"><button onclick="viewCode();" title="View and edit the Code" id="codeButton"></button><button title="See it in action!" onclick="viewResult();" id="resultButton"></button></div></div>
     </body>
 </html>

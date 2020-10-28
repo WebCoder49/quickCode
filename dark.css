@@ -1,11 +1,24 @@
 * {
     color: #aaaaaa;
 }
+body {
+  background-color: #000000;
+}
+input, button {
+  background-color: #222222;
+  color: #dddddd;
+}
 ::-webkit-scrollbar {
     background: #333333;
 }
 ::-webkit-scrollbar-track{
     background: #aaaaaa;
+}
+::-webkit-scrollbar-thumb{
+  background: #eeeeee;
+  border: 1px solid #111111;
+  border-top-width: 2px;
+  border-bottom-width: 2px;
 }
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #666666;
@@ -87,7 +100,7 @@ main {
 #toggleFilesButton {
     background-color: #444444;
 }
-#files {
+#files, .popup .content, .popup h1 {
     background-color: #010101;
 }
 #files, #code, #result, #mobilePlaceholder {
@@ -131,6 +144,9 @@ main {
 .hljs {
     display: block;
     background: #0a101f;
+    background-image: linear-gradient(#211e03 50%, #ffffff00 50%);
+    background-size: 100% 40px;
+    background-position: 0 10px;
     color: #aaaaaa;
   }
   
@@ -204,3 +220,18 @@ main {
   .hljs-strong {
     font-weight: bold;
   }
+  .popup .content p {
+    color: #eeeeee;
+}
+.popup .content p b {
+    color: #ffff88;
+}
+.toggleSwitch {
+  background-color: #000088;
+}
+.toggleSwitch .icon {
+  background-color: #ffff88;
+}
+.toggleSwitch:hover .icon {
+  background-color: yellow;
+}

@@ -5,27 +5,45 @@
         <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
         <title>QuickCode by WebCoder49 - Download a File</title>
         <!--main styles-->
-        <link rel="stylesheet" href="main.css"/>
+        <link rel="stylesheet" href="../main.css"/>
         <!--theme styles-->
-        <link rel="stylesheet" href="light.css"/>
+        <link rel="stylesheet" href="../dark.css" id="theme"/>
         <!--mobile meta viewport-->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--favicon-->
-        <link rel="icon" type="image/png" href="images/logo.png"/>
+        <link rel="icon" type="image/png" href="../images/logo.png"/>
         <style>
             * {
                 padding: 5px;
                 margin: 5px;
             }
         </style>
+        <!--script-->
+        <script src="../pageScript.js"></script>
     </head>
-    <body style="padding: 10px;">
+    <body style="padding: 10px; overflow: auto;">
         <script>
             window.onload = function() {
-                document.getElementById("dlLink").href = decodeURIComponent(location.hash.substring(1));
+                let data = location.hash.substring(1).split("-");
+                document.getElementById("dlLink").href = decodeURIComponent(data[0]);
+                document.getElementById("link").value = decodeURIComponent(data[0]);
+                document.getElementById("preview").href = decodeURIComponent(data[0]);
+                document.getElementById("filename").innerText = atob(decodeURIComponent(data[1]));
+                document.getElementById("dlLink").download = atob(decodeURIComponent(data[1]));
+        }
+        function copyText(e) {
+            var copyText = document.querySelector("#link");
+            copyText.select();
+            document.execCommand("copy");
+            e.innerText = "Copied!"
         }
         </script>
-        <a id="dlLink" href="#" download="index.html"><h1>Click Here To Download!</h1></a>
+        <a id="dlLink" href="#" download="index.html"><h1>Click Here To Download <span id="filename">your file</span>!</h1></a>
+        <p><em>...or use this link: </em><input type="text" placeholder="Error..." id="link"/><button onclick="copyText(this);">Copy</button> (paste it in a new tab)</p>
+        <h1><b>Preview (<a id="preview" href="" target="preview">Run</a>): </b></h1>
+        <iframe name="preview" src="pageExample.html" style="width: 90vmin; height: 90vmin;">
+            Sorry. Your Browser does not support HTML5 iframes.
+        </iframe>
         <pre><code>WebCoder49 - QuickCode Editor</code></pre>
     </body>
 </html>
