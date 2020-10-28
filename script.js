@@ -143,15 +143,9 @@ function download() {
     }
 }
 function save() {
-<<<<<<< HEAD
     currentCode = document.getElementById("plainCode").value;
     fs = files.get();
     fs[currentlyEditing][1] = encodeURIComponent(currentCode);
-=======
-    let currentCode = encodeURIComponent(document.getElementById("plainCode").value);
-    fs = files.get();
-    fs[currentlyEditing][1] = currentCode;
->>>>>>> a88d07cca670187de136db52bfb452c5fe6aeb48
     files.set(fs);
 }
 function searchFiles(q) {
