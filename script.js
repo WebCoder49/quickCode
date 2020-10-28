@@ -257,13 +257,9 @@ let files = {
     },
     addToList: function() {
         fs = files.get();
-        fs.forEach(function(item, index) {
-<<<<<<< HEAD
-            let arr = item.split("#");
-            document.getElementById("fileList").innerHTML += '<div class="fileItem" id="f' + index + '" onclick="openF(this);"><span class="fileName">' + arr[0] + '.html</span><button class="fileOptions"></button></div>';
-=======
-            document.getElementById("fileList").innerHTML += '<div class="fileItem" id="f' + index + '" onclick="openF(this);"><span class="fileName">' + item[0] + '</span><button class="fileOptions" onclick="options(this.parentElement);"></button></div>';
->>>>>>> a88d07cca670187de136db52bfb452c5fe6aeb48
+    fs.forEach(function(item, index) {
+            let arr = item;
+            document.getElementById("fileList").innerHTML += '<div class="fileItem" id="f' + index + '" onclick="openF(this);"><span class="fileName">' + arr[0] + '</span><button class="fileOptions"></button></div>';
         });
     }
 }
