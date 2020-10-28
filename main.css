@@ -193,7 +193,7 @@ h1 {
             left: 0;
             height: 100%;
             position: absolute;
-            z-index: 10;
+            z-index: 10!important;
         }
         #files.open {
             width: 100%;

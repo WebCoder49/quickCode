@@ -73,7 +73,10 @@ function download() {
     window.open("download.html#" + encodeURIComponent("data:text/html;base64," + btoa(code)), "_blank")
 }
 function save() {
-    let currentCode = document.getElementById("plainCode").value;
+    currentCode = document.getElementById("plainCode").value;
+    fs = files.get();
+    fs[currentlyEditing][1] = encodeURIComponent(currentCode);
+    files.set(fs);
 }
 function searchFiles(q) {
     let es = document.getElementById("fileList").getElementsByClassName("fileItem");
@@ -93,12 +96,12 @@ function openF(e) {
     e.classList.add("open");
     let n = e.id.substring(1);
     fs = files.get();
-    let f = fs[n];
+    let f = fs[n].split("#");
     currentName = f[0];
     currentCode = f[1];
     currentlyEditing = n;
     document.getElementById("plainCode").value = currentCode;
-    highlight(currentCode);
+    highlight(document.getElementById("plainCode").value);
 }
 let files = {
     get: function() {
@@ -123,7 +126,8 @@ let files = {
     addToList: function() {
         fs = files.get();
         fs.forEach(function(item, index) {
-            document.getElementById("fileList").innerHTML += '<div class="fileItem" id="f' + index + '" onclick="openF(this);"><span class="fileName">' + item[0] + '.html</span><button class="fileOptions"></button></div>';
+            let arr = item.split("#");
+            document.getElementById("fileList").innerHTML += '<div class="fileItem" id="f' + index + '" onclick="openF(this);"><span class="fileName">' + arr[0] + '.html</span><button class="fileOptions"></button></div>';
         });
     }
 }
