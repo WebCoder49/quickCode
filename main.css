@@ -219,7 +219,8 @@ h6 {
         #files {
             width: 0;
             opacity: 0;
-            overflow: hidden;
+            overflow: auto;
+            overflow-x: hidden;
             top: 0;
             left: 0;
             height: 100%;
@@ -450,6 +451,41 @@ iframe {
     border: 3px solid yellow;
     box-shadow: 3px 3px #ffff0088;
 }
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #000000ee;
+    color: #ffffff;
+    z-index: 1000;
+}
+#loading p {
+    display: block;
+    width: 80%;
+    height: 20%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+    font-size: 10vh;
+}
+#loading img {
+    display: block;
+    width: 80%;
+    height: 20%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    object-fit: contain;
+}
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
 .popup.closed {
     pointer-events:  none;
     opacity: 0;
@@ -506,9 +542,10 @@ iframe {
 .toggleSwitch {
     width: 2rem;
     height: 1rem;
-    border-radius: 0.5rem;
-    margin: 0;
-    padding: 0;
+    border-radius: 0.5rem!important;
+    margin: 0!important;
+    padding: 0!important;
+    border: 0!important;
 }
 .toggleSwitch .icon {
     margin: 0;
@@ -527,6 +564,9 @@ iframe {
     border-radius: 0.5rem;
     transform: translate(1rem, 0);
     clip-path: polygon(22% 49%, 5% 66%, 23% 85%, 35% 98%, 50% 82%, 71% 62%, 87% 47%, 100% 30%, 85% 16%, 69% 33%, 58% 49%, 40% 67%);
+}
+#darkMode {
+    border: 0;
 }
 #darkMode .icon {
     margin: 0;
@@ -550,4 +590,19 @@ iframe {
 }
 a {
     color: #8888ff;
+}
+@media only print {
+    .bottomButtons, .topButtons, #files, .bigButton {
+        display: none;
+    }
+    #code, #result {
+        position: static;
+        width: 100vw;
+        height: 100vh;
+        overflow: visible;
+    }
+    * {
+        border: 0!important;
+        margin: 0!important;
+    }
 }

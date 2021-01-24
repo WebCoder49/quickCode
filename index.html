@@ -38,7 +38,8 @@
     <div class="bigButton" id="save" title="Save to Local Web Storage (Ctrl+S)" onclick="save();"></div>
     <div id="innerCode"><div class="emoji"><span>😃👩‍💻🌐👨‍💻❔</span></div><textarea id="plainCode" class="lined" spellcheck="false" onkeyup="highlight(this.value);" onkeydown="codeKeyPressed(event);"></textarea>
 <code class="html" id="richCode">
-<div class="hljs-comment">What will you <span class="hljs-title">code</span> today?</div>
+<div class="hljs-comment">What will you <span class="hljs-title">code</span> today?<br/><br/></div>
+Just start <span class="hljs-title">typing</span> to create a new webpage, <br/> or open one from the list to the left!
 </code></div></div>
             <div id="result">
                 <div class="bigButton" id="run" title="Run Code (Ctrl+R)" onclick="run();"></div><div class="bigButton" id="download" title="Download Page from Code" onclick="download();"></div>
@@ -54,8 +55,33 @@
                 <p><b onclick="document.getElementById('fullscreen').click();">Fullscreen: </b><button class="toggleSwitch" id="fullscreen" onclick="toggleSwitch(this, function() {openFullscreen();}, function() {exitFullscreen();});"><div class="icon"></div></button></p>
             </div>
         </div>
+        <div id="newFileModal" class="popup closed">
+            <h1>+ New File <span onclick="exitPopup();">&times;</span></h1>
+            <div class="content">
+                <p><b>Create New File:</b></p>
+                <form>
+                <input type="text" placeholder="File Name" id="fName" allow="html, js, svg"/>
+                <select type="text" id="fExt">
+                    <option value=".html">.html (HTML Webpage)</option>
+                    <option value=".js">.js (JavaScript Script)</option>
+                    <option value=".svg">.svg (SVG XML Graphics)</option>
+                </select>
+                <button onclick="createNewFile(document.querySelector('#fName').value, document.querySelector('#fExt').value, event);">Create File</button>
+                </form>
+            </div>
+        </div>
+        <div id="uploadFileModal" class="popup closed">
+            <h1>+ Upload Files <span onclick="exitPopup();">&times;</span></h1>
+            <div class="content">
+                <p><b>Upload Files from Computer to the Browser Saving System:</b></p>
+                <form>
+                <input type="file" placeholder="Upload" id="fUpload" multiple />
+                <button onclick="uploadNewFile(document.getElementById('fUpload'), event);">Upload Files</button>
+                </form>
+            </div>
+        </div>
         <div id="policy" class="popup">
-            <h1>Policy <span onclick="exitPopup();">&times;</span></h1>
+            <h1>Policy <span onclick="localStorage.qCagreed = '1'; exitPopup();">&times;</span></h1>
             <div class="content">
                 <h2>Private. Quick. Easy. This is <b>quickCode</b>.</h2>
                 <p><b>quickCode runs right in your browser and lets you edit, run and save code files quickly and easily! There's no need to provide any personal information or sign in, and quickCode doesn't use cookies!</b></p>
@@ -64,7 +90,7 @@
                 <h3>Privacy</h3>
                 <p><b>The main aim of quickCode is to stay 100% private, while being as functional, quick and easy as possible. You don't even need to sign in!</b> Rather than using cookies, which don't have the best reputation, quickCode stores your files and preferences locally in your browser on your computer and does not send them to the server. Therefore, sharing links and files cannot be recovered as I (WebCoder49) do not even know what they are, as quickCode is so private!</p>
                 <h3>Third-Party Code Files</h3>
-                <p>quickCode uses some Third-Party code files which let it work. They are all stored on the quickCode server and have been partly modified by WebCoder49 to work with the editor. <b>Thank you for the following files:</b></p>
+                <p>quickCode uses some Third-Party code files which let it work. Some of them have been partly modified by WebCoder49 to work with the editor. <b>Thank you for the following files:</b></p>
                 <p>
                 - highlight.js <b>Syntax Highlighter</b>: <a target="_blank" href="https://highlightjs.org/">Website (External Link)</a>, <a target="_blank" href="third-party\highlight\LICENSE">License</a><br/><br/>
                 - <b>jQuery</b> (Version hosted from Google): <a target="_blank" href="https://developers.google.com/speed/libraries#jquery">Google Hosting Website (External Link)</a>, <a target="_blank" href="https://jquery.com/">jQuery Website (External Link)</a>,  <a target="_blank" href="https://jquery.org/license/">License (External Link)</a><br/><br/>
@@ -73,6 +99,7 @@
                 </p>
             </div>
         </div>
+        <div id="loading"><p>Loading...<noscript style="color: orange;"><br/>Please enable JavaScript for quickCode to work.</noscript></p><img src="images/logo.png"/><p><span style="color: #ffff88;">quick</span><span style="color: #8888ff;">Code</span><br/>BY WEBCODER49</p></div>
         <div id="mobileBar"><div class="topButtons"><button id="filesButton" title="View/Upload/Edit a file" onclick="viewFiles();"></button></div><div class="bottomButtons"><button onclick="viewCode();" title="View and edit the Code" id="codeButton"></button><button title="See it in action!" onclick="viewResult();" id="resultButton"></button></div></div>
     </body>
 </html>

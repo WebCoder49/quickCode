@@ -144,26 +144,26 @@ main {
 .hljs {
     display: block;
     background: #0a101f;
-    background-image: linear-gradient(#211e03 50%, #ffffff00 50%);
+    background-image: linear-gradient(#222244 50%, #00000000 50%);
     background-size: 100% 40px;
     background-position: 0 10px;
-    color: #aaaaaa;
+    color: #eeeeee;
   }
   
   .hljs-comment,
   .hljs-quote {
-    color: #888888;
+    color: #dddddd;
     font-style: italic;
   }
   
   .hljs-keyword,
   .hljs-selector-tag,
   .hljs-addition {
-    color: #aaccff;
+    color: #cceeff;
   }
   
   .hljs-number {
-      color: #88aaff;
+      color: #aaccff;
   }
 
   .hljs-string,
@@ -171,7 +171,7 @@ main {
   .hljs-literal,
   .hljs-doctag,
   .hljs-regexp {
-    color: #88ffff;
+    color: #00aaff;
   }
 
   .hljs-title,
@@ -179,7 +179,7 @@ main {
   .hljs-name,
   .hljs-selector-id,
   .hljs-selector-class {
-    color: #8888ff;
+    color: #88aaff;
     font-weight: bold;
   }
   
@@ -201,12 +201,12 @@ main {
   .hljs-selector-attr,
   .hljs-selector-pseudo,
   .hljs-link {
-    color: #aaaaff;
+    color: #aaffff;
   }
   
   .hljs-built_in,
   .hljs-deletion {
-    color: #ffc030;
+    color: #ffffaa;
   }
   
   .hljs-formula {
@@ -225,6 +225,30 @@ main {
 }
 .popup .content p b {
     color: #ffff88;
+}
+.popup .content form {
+  background-color: #8888ff;
+  color: black;
+  font-size: 30pt;
+  max-width: 90%;
+  margin-left: 50%!important;
+  text-align: center;
+  transform: translate(-50%, 0);
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+}
+.popup .content form input, .popup .content form select, .popup .content form button {
+  background-color: #000044;
+  color: #ffffee;
+  border: 2px solid #ffffee;
+  border-radius: 2px;
+  padding: 2px;
+  margin: 2px;
+  max-width: 100%;
+}
+.popup .content form input:focus, .popup .content form select:focus, .popup .content form button:hover {
+  border-color: gold;
 }
 .toggleSwitch {
   background-color: #000088;

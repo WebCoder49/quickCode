@@ -33,23 +33,24 @@ $(window).bind('keydown', function(event) {
     }
 });
 
-setTimeout(function() {
-    // Set theme
-    if(localStorage.qCT == "d") {
-        document.getElementById("theme").href = "dark.css";
-        document.getElementById("darkMode").classList.add("dark");
-    } else {
-        document.getElementById("theme").href = "light.css";
-        document.getElementById("darkMode").classList.remove("dark");
+const langs = {
+    js: {
+        name: "javascript"
+    },
+    html: {
+        name: "html"
+    },
+    svg: {
+        name: "svg"
     }
-}, 1000);
+}
 function darkMode(e) {
     e.classList.toggle("dark");
     if(e.classList.contains("dark")) {
         localStorage.qCT = "d";
         document.getElementById("theme").href = "dark.css";
     } else {
-        localStorage.qCT = "";
+        localStorage.qCT = "l";
         document.getElementById("theme").href = "light.css";
     }
 }
@@ -89,7 +90,9 @@ function refreshLines() {
     newLines = false;
 }
 function highlight(code) {
+    viewCode();
     if(currentlyEditing !== undefined) {
+        document.getElementById("richCode").className = langs[currentName.split(".")[currentName.split(".").length - 1]].name;
         refreshLines();
         code = code.replace(new RegExp(" ", "ig"), "\u00a0")
         let linen = code.split("\n").length;
@@ -107,8 +110,31 @@ function highlight(code) {
         document.getElementById("richCode").innerText = code;
         hljs.highlightBlock(document.getElementById("richCode"));
     } else {
-        document.getElementById("richCode").innerHTML = "<div class='hljs-comment'>Please <span class='hljs-title'>click a file in the file tab to edit it </span> <br/>or press the <span class='hljs-title'>+</span> button to create a new one.</div>";
-        document.getElementById("plainCode").value = "";
+        currentName = "index.html";
+        currentCode = code
+        fs = files.get();
+        fs.push([currentName, currentCode])
+        files.set(fs);
+        document.getElementById("fileList").innerHTML = "";
+        files.addToList();
+        let e = document.getElementById("f" + (fs.length - 1));
+        let es = document.getElementById("fileList").getElementsByClassName("fileItem");
+        for(let i = 0; i < es.length; i++) {
+            es[i].classList.remove("open");
+        }
+        e.classList.add("open");
+        let n = e.id.substring(1);
+        fs = files.get();
+        let f = fs[n];
+        currentName = f[0];
+        currentCode = decodeURIComponent(f[1]);
+        currentlyEditing = n;
+        document.getElementById("plainCode").value = currentCode;
+        highlight(document.getElementById("plainCode").value);
+        document.getElementById("plainCode").select();
+        let len = document.getElementById("plainCode").value.length;
+        document.getElementById("plainCode").selectionStart = len;
+        document.getElementById("plainCode").selectionEnd = len;
     }
 }
 //Keyboard Shortcuts
@@ -128,18 +154,16 @@ function codeKeyPressed(event) {
 //Files and editor
 function run() {
     if(currentlyEditing !== undefined) {
+    viewResult();
     let frame = document.getElementById("resultFrame");
     let code = document.getElementById("plainCode").value;
-    if(/^[\x00-\xFF]*$/.test(code) == false) {
-        alert("Sorry, but quickCode does not yet have support for non-ASCII characters. 😢")
-    }
-    frame.src = "data:text/html;base64," + btoa(code);
+    frame.src = "https://run-qcode.og49.repl.co/?lang=" + langs[currentName.split(".")[currentName.split(".").length - 1]].name + "&code=" + encodeURIComponent(code);
     }
 }
 function download() {
     if(currentlyEditing !== undefined) {
         let code = document.getElementById("plainCode").value;
-        window.open("download/#" + encodeURIComponent("data:text/html;base64," + btoa(code) + "-" + btoa(currentName)), "_blank");
+        window.open("download.html#" + encodeURIComponent("data:text/html;base64," + btoa(code) + "-" + btoa(currentName)), "_blank");
     }
 }
 function save() {
@@ -172,15 +196,23 @@ function deleteFile(e) {
                 document.getElementById("save").style.backgroundColor = defbg;
             }, 500)
         }
+        let delN = e.id.substring(1);
+        let openN = location.hash.substring(2)
+        if(delN < openN) {
+            openN = Number(openN) - 1; // Keep same file open; index is different
+        } else if(delN == openN) {
+            openN = ""; // Deleted open file
+        }
+        location.hash = "#f" + openN;
         //action
         let n = e.id.substring(1);
         fs.splice(n, 1);
         files.set(fs);
-        window.onbeforeunload = function (e) {}; //allow reload
         location.reload(); //Reload
     }
 }
 function openF(e) {
+    location.hash = "#" + e.id;
     if(currentlyEditing !== undefined) {
         let defbg = document.getElementById("save").style.backgroundColor;
         save();
@@ -205,6 +237,35 @@ function openF(e) {
     
 }
 function newFile() {
+    openPopup(document.getElementById("newFileModal"));
+    document.getElementById("fName").value = "";
+    document.getElementById("fName").focus();
+}
+function uploadFile() {
+    document.getElementById("fUpload").click();
+    openPopup(document.getElementById("uploadFileModal"));
+}
+function uploadNewFile(e, ev) {
+    ev.preventDefault()
+    exitPopup()
+
+    if('files' in e) {
+        fs = e.files;
+        for(let i = 0; i < fs.length; i++) {
+            let name = fs[i].name
+            var reader = new FileReader();
+            reader.onload = function(evt) {
+                let text = evt.target.result;
+                createNewFile(name, "", ev, text);
+            };
+            reader.readAsText(fs[i]);
+        }
+    }
+}
+function createNewFile(name, extension, ev, text=undefined) {
+    ev.preventDefault()
+    exitPopup()
+
     if(currentlyEditing !== undefined) {
         let defbg = document.getElementById("save").style.backgroundColor;
         save();
@@ -213,27 +274,29 @@ function newFile() {
             document.getElementById("save").style.backgroundColor = defbg;
         }, 500)
     }
-    currentName = prompt("What would you like to call your file? \n(.html will be added automatically)") + ".html";
-    currentCode = encodeURIComponent("<!DOCTYPE html>\r\n<html>\r\n    <head>\r\n        <title>" + currentName + "<\/title>\r\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n        <!--It works on tablets and smartphones-->\r\n    <\/head>\r\n    <body>\r\n        <h1>Hello, World!<\/h1>\r\n    <\/body>\r\n<\/html>");
+
+    currentName = name + extension
+    let ext = currentName.split(".")[currentName.split(".").length - 1];
+    if(text == undefined) {
+        if(ext == "html") {
+            currentCode = encodeURIComponent("<!DOCTYPE html>\r\n<html>\r\n    <head>\r\n        <title>" + currentName + "<\/title>\r\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n        <!--It works on tablets and smartphones-->\r\n    <\/head>\r\n    <body>\r\n        <h1>Hello, World!<\/h1>\r\n    <\/body>\r\n<\/html>");
+        } else if(ext == "js") {
+            currentCode = encodeURIComponent("\/* " + currentName + " - Made on the quickCode editor at https://webcoder49.github.io/quickCode */\r\n\r\nconsole.log(\"Hello, World!\", \"font-size: 30pt\");");
+        } else if(ext == "svg") {
+            currentCode = encodeURIComponent("<!--" + currentName + " - Made on WebCoder49\'s quickCode Editor-->\r\n\r\n<polygon points=\"10 10, 50 10, 80 60, 50 110, 10 110, 40 60\" style=\"fill: navy;\"\/>\r\n<polygon points=\"65 10, 105 10, 135 60, 105 110, 65 110, 95 60\" style=\"fill: gold;\"\/>\r\n<polygon points=\"120 10, 160 10, 190 60, 160 110, 120 110, 150 60\" style=\"fill:navy\"\/>\r\n<text style=\"fill: navy; font-family: monospace; font-size: 25px;\" x=\"10\" y=\"155\">Hello, World!<\/text>");
+        } else {
+            currentCode = encodeURIComponent("*Extension not recognised (.'" + ext + "') - May not run*");
+        }
+    } else {
+        currentCode = encodeURIComponent(text);
+    }
     fs = files.get();
     fs.push([currentName, currentCode])
     files.set(fs);
     document.getElementById("fileList").innerHTML = "";
     files.addToList();
     let e = document.getElementById("f" + (fs.length - 1));
-    let es = document.getElementById("fileList").getElementsByClassName("fileItem");
-    for(let i = 0; i < es.length; i++) {
-        es[i].classList.remove("open");
-    }
-    e.classList.add("open");
-    let n = e.id.substring(1);
-    fs = files.get();
-    let f = fs[n].split("#");
-    currentName = f[0];
-    currentCode = decodeURIComponent(f[1]);
-    currentlyEditing = n;
-    document.getElementById("plainCode").value = currentCode;
-    highlight(document.getElementById("plainCode").value);
+    openF(e)
 }
 let files = {
     get: function() {
@@ -241,7 +304,8 @@ let files = {
             let fCodes = localStorage.qCFs.split("/");
             let files = [];
             fCodes.forEach(function(item) {
-                files.push(item.split("#"));
+                let arr = item.split("#")
+                files.push(arr);
             });
             return files;
         } else {
@@ -259,26 +323,46 @@ let files = {
         fs = files.get();
     fs.forEach(function(item, index) {
             let arr = item;
-            document.getElementById("fileList").innerHTML += '<div class="fileItem" id="f' + index + '" onclick="openF(this);"><span class="fileName">' + arr[0] + '</span><button class="fileOptions"></button></div>';
+            document.getElementById("fileList").innerHTML += '<div class="fileItem" id="f' + index + '" onclick="openF(this);"><span class="fileName">' + arr[0] + '</span><button class="fileOptions" onclick="deleteFile(this.parentElement);"></button></div>';
         });
     }
 }
-window.onload = files.addToList;
-window.addEventListener('beforeunload', function (e) {
+window.onload = function() { 
+    files.addToList();
+    if(location.hash != "#" && location.hash != "" && location.hash != "#f") {
+        let h = location.hash.substr(1);
+        openF(document.getElementById(h));
+    }
+    if(localStorage.qCagreed == "1") {
+        exitPopup();
+    }
+    // Set theme
+    if(localStorage.qCT == "d") {
+        document.getElementById("theme").href = "dark.css";
+        document.getElementById("darkMode").classList.add("dark");
+    } else if(localStorage.qCT == "l") {
+        document.getElementById("theme").href = "light.css";
+        document.getElementById("darkMode").classList.remove("dark");
+    } else {
+        // System theme
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.getElementById("theme").href = "dark.css";
+            document.getElementById("darkMode").classList.add("dark");
+            console.log("Default Theme Set to Dark due to System Theme");
+        } else {
+            document.getElementById("theme").href = "light.css";
+            document.getElementById("darkMode").classList.remove("dark");
+            console.log("Default Theme Set to Light due to System Theme");
+        }
+    }
+    document.getElementById("loading").classList.add("hidden");
+};
+window.addEventListener('unload', function (e) {
     //save before action
     if(currentlyEditing !== undefined) {
-        let defbg = document.getElementById("save").style.backgroundColor;
         save();
-        document.getElementById("save").style.backgroundColor = "#ffff00";
-        setTimeout(function() {
-            document.getElementById("save").style.backgroundColor = defbg;
-        }, 500)
     }
-    // Cancel the event
-    e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
-    // Chrome requires returnValue to be set
-    e.returnValue = 'Are you sure you want to leave? Changes may not be saved - WebCoder49';
-  });
+});
 function exitPopup() {
     document.getElementById("popupOverlay").classList.add("closed");
     let popups = document.getElementsByClassName("popup");

@@ -215,6 +215,31 @@ main {
     font-weight: bold;
   }
   /*pop-ups*/
+
+.popup .content form {
+    background-color: #000088;
+    color: white;
+    font-size: 30pt;
+    max-width: 90%;
+    margin-left: 50%!important;
+    text-align: center;
+    transform: translate(-50%, 0);
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+}
+.popup .content form input, .popup .content form select, .popup .content form button {
+    background-color: #ffffee;
+    color: #000044;
+    border: 2px solid #000044;
+    border-radius: 2px;
+    padding: 2px;
+    margin: 2px;
+    max-width: 100%;
+}
+.popup .content form input:focus, .popup .content form select:focus, .popup .content form button:hover {
+    border-color: gold;
+}
 .popup .content p {
     color: #111111;
 }
@@ -222,7 +247,7 @@ main {
     color: #888800;
 }
 .toggleSwitch {
-    background-color: #8888ff;
+    background-color: #8888ff!important;
 }
 .toggleSwitch .icon {
     background-color: yellow;
