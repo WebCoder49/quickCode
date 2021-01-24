@@ -6,4 +6,4 @@ Use this IDE to quickly code and edit HTML files saved on your browser without n
 - Powered by [GitHub Pages](https://pages.github.com)!
 - Created by [WebCoder49](https://webcoder49.wordpress.com)!
 
-To see the code, please see the [`pages`](https://github.com/WebCoder49/quickCode/tree/master) branch.
+To see the code, please see the [`pages`](https://github.com/WebCoder49/quickCode/tree/pages) branch.
